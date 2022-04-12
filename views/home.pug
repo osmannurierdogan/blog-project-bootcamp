@@ -4,4 +4,5 @@ block content
   p #{homeStartingContent}
   each post in posts
     h3 #{post.title}
-    p #{post.content}
+    p #{post.content.substring(0, 100) + "..."}
+    a.read-more(href=`/posts/${post.title}`) Read More
