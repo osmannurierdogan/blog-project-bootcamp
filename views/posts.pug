@@ -1,0 +1,5 @@
+extends layout 
+block content 
+  h1 The number of the items is #{posts.length}
+  each post in posts
+    p #{post.title}, #{post.content}

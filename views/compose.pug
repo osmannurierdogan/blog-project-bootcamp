@@ -1,0 +1,13 @@
+extends layout 
+block content
+  h1 Compose 
+  form(action="/compose", method="post") 
+    label(for="postTitle") Title 
+    br
+    input(type="text" id="postTitle" name="postTitle")
+    br
+    label(for="postText") Post 
+    br
+    textarea(name="postText" id="postText") 
+    br
+    button(type="submit" name="button") Publish

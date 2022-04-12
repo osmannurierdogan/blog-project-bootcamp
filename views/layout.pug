@@ -6,4 +6,18 @@ head
   title Blog Website
 
 body
+  header.header 
+    nav.nav
+      ul.nav-list  
+        // li.nav-list-item #[a(href='/home') Home]
+        li.nav-list-item #[a(href='/') Home]
+        li.nav-list-item #[a(href='/about') About] 
+        li.nav-list-item #[a(href='/contact') Contact] 
+        li.nav-list-item #[a(href='/posts') Posts] 
+        li.nav-list-item #[a(href='/compose') Compose] 
+
   block content
+
+  footer.footer 
+    div.footer-text 
+      p Made with ❤️ by #[strong Osman Nuri Erdogan]
