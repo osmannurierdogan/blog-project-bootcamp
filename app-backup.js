@@ -3,10 +3,6 @@ const bodyParser = require('body-parser');
 const _ = require('lodash');
 const PORT = process.env.PORT || 3000;
 const app = express();
-require('./mongodb-connection');
-
-const PostService = require('./services/post-service');
-//const PostModel = require('./models/post');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,14 +16,19 @@ const aboutContent =
 	'Deserunt culpa minima iusto ullam, modi, beatae quae perferendis reiciendis obcaecati illo ex debitis, eaque laudantium magni totam ut ratione voluptas sunt! voluptate? Quasi optio dolor asperiores a laudantium est? Deserunt culpa minima iusto ullam, modi, beatae quae perferendis reiciendis obcaecati illo ex debitis, eaque laudantium magni totam ut ratione voluptas sunt! voluptate? Quasi optio dolor asperiores a laudantium est?';
 const contactContent =
 	'Doloribus, veniam recusandae! Nihil, assumenda veritatis dolorem corporis, ad quae libero temporibus neque incidunt sed debitis reiciendis natus facere, cumque doloremque dolor ab molestiae similique quam nobis amet? Ipsa, numquam. Doloribus, veniam recusandae! Nihil, assumenda veritatis dolorem corporis, ad quae libero temporibus neque incidunt sed debitis reiciendis natus facere, cumque doloremque dolor ab molestiae similique quam nobis amet? Ipsa, numquam.';
+const posts = [];
 
-
-
-app.get('/', async (req, res) => {
-	const renderedPosts = await PostService.findAll();
+app.get('/', (req, res) => {
+	/* posts.forEach(post => {
+		let previewText = '';
+		if(post.content.length > 100){
+			previewText = post.content.substring(0, 100) + "...";
+		}
+		// console.log('previewText :>> ', previewText);
+	}); */
 	res.render('home', {
 		homeStartingContent: homeStartingContent,
-		posts: renderedPosts,
+		posts: posts,
 	});
 });
 app.get('/home', (req, res) => {
@@ -45,22 +46,46 @@ app.get('/about', (req, res) => {
 app.get('/compose', (req, res) => {
 	res.render('compose');
 });
-
-app.post('/compose', async (req, res) => {
-	const post = await PostService.add({
+app.post('/compose', (req, res) => {
+	// console.log('res :>> ', res);
+	// res.render('index', { response: req.body.postTitle });
+	/* const postTitle = req.body.postTitle;
+  const postText = req.body.postText;
+  res.send(postTitle + postText); */
+	const post = {
 		title: req.body.postTitle,
 		content: req.body.postText,
-	});
+	};
+	posts.push(post);
+	/* res.render('post', {
+		postTitle: req.body.postTitle,
+		postText: req.body.postText,
+	}); */
+	// console.log('posts :>> ', posts);
+	// res.render('post', post);
 	res.redirect('/');
 });
-
-app.get('/posts', async (req, res) => {
-	const posts = await PostService.findAll();
+app.get('/posts', (req, res) => {
 	res.render('posts', { posts: posts });
 });
-app.get('/posts/:id', async (req, res) => {
-	const post = await PostService.find(req.params.id);
-	res.render('post', {post: post})
+app.get('/posts/:title', (req, res) => {
+	const requestedPostTitle = _.lowerCase(req.params.title);
+	// ! const requestedPostTitle = req.params.title.toLowerCase();
+	//const filteredPost = posts.filter(post => post.title === requestedPostTitle);
+	let newPost = {};
+	posts.forEach((post) => {
+		const searchedTitle = _.lowerCase(post.title);
+		if (searchedTitle === requestedPostTitle) {
+			// ! if (post.title.toLowerCase() === requestedPostTitle) {
+			newPost = {
+				title: post.title,
+				content: post.content,
+			};
+			res.render('post', { newPost: newPost });
+		} else {
+			res.render('error');
+		}
+	});
 });
 
 app.listen(PORT, () => {
