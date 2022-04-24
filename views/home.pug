@@ -1,8 +1,11 @@
 extends layout 
 block content 
-  h1 Home
-  p #{homeStartingContent}
+  div.container
+    h1 Home
+    p #{homeStartingContent}
+  div.card-container
   each post in posts
-    h3 #{post.title}
-    p #{post.content.substring(0, 100) + "..."}
-    a.read-more(href=`/posts/${post.title}`) Read More
+    div.card
+      h3 #{post.title}
+      p #{post.content.substring(0, 100) + "..."}
+      a.read-more(href=`/posts/${post.title}`) Read More

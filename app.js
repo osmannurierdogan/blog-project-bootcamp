@@ -21,8 +21,6 @@ const aboutContent =
 const contactContent =
 	'Doloribus, veniam recusandae! Nihil, assumenda veritatis dolorem corporis, ad quae libero temporibus neque incidunt sed debitis reiciendis natus facere, cumque doloremque dolor ab molestiae similique quam nobis amet? Ipsa, numquam. Doloribus, veniam recusandae! Nihil, assumenda veritatis dolorem corporis, ad quae libero temporibus neque incidunt sed debitis reiciendis natus facere, cumque doloremque dolor ab molestiae similique quam nobis amet? Ipsa, numquam.';
 
-
-
 app.get('/', async (req, res) => {
 	const renderedPosts = await PostService.findAll();
 	res.render('home', {
@@ -60,7 +58,7 @@ app.get('/posts', async (req, res) => {
 });
 app.get('/posts/:id', async (req, res) => {
 	const post = await PostService.find(req.params.id);
-	res.render('post', {post: post})
+	res.render('post', { post: post });
 });
 
 app.listen(PORT, () => {
