@@ -28,12 +28,12 @@ app.get('/', async (req, res) => {
 		posts: renderedPosts,
 	});
 });
-app.get('/home', (req, res) => {
+/* app.get('/home', (req, res) => {
 	res.render('home', {
 		homeStartingContent: homeStartingContent,
 		posts: posts,
 	});
-});
+}); */
 app.get('/contact', (req, res) => {
 	res.render('contact', { contactContent: contactContent });
 });
@@ -45,8 +45,10 @@ app.get('/compose', (req, res) => {
 });
 
 app.post('/compose', async (req, res) => {
+	const slug = _.kebabCase(req.body.postTitle);
 	const post = await PostService.add({
 		title: req.body.postTitle,
+		slug: slug,
 		content: req.body.postText,
 	});
 	res.redirect('/');
@@ -60,6 +62,14 @@ app.get('/posts/:id', async (req, res) => {
 	const post = await PostService.find(req.params.id);
 	res.render('post', { post: post });
 });
+
+/* 
+TODO
+  app.get('/posts/:slug', async (req, res) => {
+	//const parameterTitle = _.toLower();
+	const post = await PostService.findBySlug(req.params.slug);
+	res.render('post', { post: post });
+}); */
 
 app.listen(PORT, () => {
 	console.log(`Server is running on ${PORT}...`);

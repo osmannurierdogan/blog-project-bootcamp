@@ -19,4 +19,8 @@ module.exports = class Service {
 	async find(itemId) {
 		return this.model.findById(itemId);
 	}
+
+	async findBySlug(itemSlug) {
+		return this.model.findOne({ slug: itemSlug });
+	}
 };

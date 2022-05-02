@@ -7,5 +7,7 @@ block content
   each post in posts
     div.card
       h3 #{post.title}
+      h5 #{post.slug}
       p #{post.content.substring(0, 100) + "..."}
-      a.read-more(href=`/posts/${post.title}`) Read More
+      // ! a.read-more(href=`/posts/${post.slug}`) Read More
+      a.read-more(href=`/posts/${post._id}`) Read More
