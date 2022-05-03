@@ -1,5 +1,6 @@
 extends layout 
 block content 
-  h1 The number of the items is #{posts.length}
-  each post in posts
-    p #{post.title}, #{post.content}
+  div.container
+    h1.heading-secondary The number of the items is #{posts.length}
+    each post in posts
+      p.paragraph-secondary #[strong Title:] #{post.title} #[br] #[strong Content:] #{post.content}

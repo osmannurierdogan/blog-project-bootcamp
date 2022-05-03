@@ -1,13 +1,13 @@
 extends layout 
 block content 
   div.container
-    h1 Home
-    p #{homeStartingContent}
+    h1.heading-primary Home
+    p.paragraph-primary #{homeStartingContent}
   div.card-container
-  each post in posts
-    div.card
-      h3 #{post.title}
-      h5 #{post.slug}
-      p #{post.content.substring(0, 100) + "..."}
-      // ! a.read-more(href=`/posts/${post.slug}`) Read More
-      a.read-more(href=`/posts/${post._id}`) Read More
+    each post in posts
+      div.card
+        h2.heading-secondary #{post.title}
+        h3 #{post.slug}
+        p.paragraph-secondary #{post.content.substring(0, 150) + "..."}
+        // ! a.read-more(href=`/posts/${post.slug}`) Read More
+        a.read-more(href=`/posts/${post._id}`) Read More

@@ -20,7 +20,7 @@ module.exports = class Service {
 		return this.model.findById(itemId);
 	}
 
-	async findBySlug(itemSlug) {
+	async findBySlug({slug: itemSlug}) {
 		return this.model.findOne({ slug: itemSlug });
 	}
 };
